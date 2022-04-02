@@ -1,8 +1,3 @@
-%%%-------------------------------------------------------------------
-%% @doc weight_keeper top level supervisor.
-%% @end
-%%%-------------------------------------------------------------------
-
 -module(weight_keeper_sup).
 
 -behaviour(supervisor).
@@ -29,7 +24,5 @@ init([]) ->
     SupFlags = #{strategy => one_for_all,
                  intensity => 0,
                  period => 1},
-    ChildSpecs = [],
+    ChildSpecs = [weight_keeper_cowboy:child_spec()],
     {ok, {SupFlags, ChildSpecs}}.
-
-%% internal functions
