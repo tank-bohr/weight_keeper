@@ -13,8 +13,7 @@ init(Req, Opts) ->
     {ok, Resp, Opts}.
 
 react(#{message := #{from := #{username := User}, text := Text}}) ->
-    ?LOG_DEBUG("Got message [~ts] from User [~s]", [Text, User]),
-    ;
+    ?LOG_DEBUG("Got message [~ts] from User [~s]", [Text, User]);
 react(#{edited_message := #{from := #{username := User}, text := Text}}) ->
     ?LOG_DEBUG("Got edited message [~ts] from User [~s]", [Text, User]);
 react(#{message := #{from := #{username := User}, sticker := #{set_name := Sticker}}}) ->
