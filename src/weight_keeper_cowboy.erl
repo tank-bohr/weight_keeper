@@ -5,7 +5,7 @@
 child_spec() ->
     #{
         id => ?MODULE,
-        start => {cowboy, start_clear, args()}
+        start => {cowboy, start_tls, args()}
     }.
 
 args() ->
@@ -13,9 +13,13 @@ args() ->
 
 name() -> http.
 
-transport_opts() -> [{port, port()}].
+transport_opts() ->
+    [
+        {certfile, "/cert/fullchain.pem"},
+        {port, port()}
+    ].
 
-port() -> 8080.
+port() -> 8443.
 
 protocol_opts() ->
     #{env => #{dispatch => dispatch()}}.
