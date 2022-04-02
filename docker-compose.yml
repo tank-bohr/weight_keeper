@@ -1,0 +1,13 @@
+volumes:
+  pg_data:
+
+services:
+  db:
+    image: postgres:latest
+    ports:
+      - "5432:5432"
+    environment:
+      - "POSTGRES_DB=weight_keeper"
+      - "POSTGRES_HOST_AUTH_METHOD=trust"
+    volumes:
+      - "pg_data:/var/lib/postgresql/data"
