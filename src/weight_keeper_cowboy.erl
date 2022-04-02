@@ -15,7 +15,8 @@ name() -> http.
 
 transport_opts() ->
     [
-        {certfile, "/cert/fullchain.pem"},
+        {certfile, "/cert/cert1.pem"},
+        {keyfile, "/cert/privkey1.pem"},
         {port, port()}
     ].
 
