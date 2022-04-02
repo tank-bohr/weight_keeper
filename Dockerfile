@@ -10,7 +10,7 @@ RUN rebar3 release
 FROM alpine
 
 RUN apk update && \
-    apk add ncurses-dev
+    apk add openssl ncurses-libs libstdc++
 
 EXPOSE 8443
 
