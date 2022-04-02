@@ -14,6 +14,7 @@
                 [
                     {host, "${DB_HOST}"},
                     {username, "${DB_USER}"},
+                    {username, "${DB_PASSWORD}"},
                     {database, "weight_keeper"}
                 ]}
             ]}
