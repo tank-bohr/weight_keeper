@@ -4,8 +4,14 @@
   {registered, []},
   {mod, {weight_keeper_app, []}},
   {applications,
-   [kernel,
-    stdlib
+   [inets,
+    ssl,
+    kernel,
+    stdlib,
+    ranch,
+    cowboy,
+    jsx,
+    pgapp
    ]},
   {env,[]},
   {modules, []},

@@ -1,0 +1,22 @@
+[
+    {kernel, [
+        {logger_level, ${LOG_LEVEL}}
+    ]},
+    {weight_keeper, [
+        {telegram_token, "${TELEGRAM_TOKEN}"}
+    ]},
+    {pgapp, [
+        {pools, [
+            {main_pool, [
+                    {size, 5},
+                    {max_overflow, 10}
+                ],
+                [
+                    {host, "${DB_HOST}"},
+                    {username, "${DB_USER}"},
+                    {database, "weight_keeper"}
+                ]}
+            ]}
+        ]
+    }
+].

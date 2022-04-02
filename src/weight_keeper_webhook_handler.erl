@@ -22,7 +22,7 @@ react(#{message := #{chat := #{id := ChatId}, from := #{id := UserId, username :
     case re:run(Text, <<"\\d+[.,]?\\d?">>, [{capture, all, binary}]) of
         {match, [Value]} ->
             pgapp:equery(main_pool, ?INSERT_QUERY, [UserId, convert_number(Value)]),
-            reply(ChatId, <<"Ваш вес учтёт"/utf8>>, Token);
+            reply(ChatId, <<"Ваш вес учтён"/utf8>>, Token);
         nomatch ->
             reply(ChatId, <<"Ничего не понял"/utf8>>, Token)
     end;
