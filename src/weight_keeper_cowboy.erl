@@ -9,19 +9,11 @@ child_spec() ->
     }.
 
 args() ->
-    [name(), transport_opts(), protocol_opts()].
-
-name() -> http.
+    [https, transport_opts(), protocol_opts()].
 
 transport_opts() ->
-    [
-        {cacertfile, "/cert/chain1.pem"},
-        {certfile, "/cert/cert1.pem"},
-        {keyfile, "/cert/privkey1.pem"},
-        {port, port()}
-    ].
-
-port() -> 8443.
+    {ok, _TlsOpts} = application:get_env(weight_keeper, tls_options),
+    [{port, 8443}].
 
 protocol_opts() ->
     #{env => #{dispatch => dispatch()}}.
@@ -30,7 +22,8 @@ dispatch() ->
     Token = fetch_telegram_token(),
     cowboy_router:compile([
         {'_', [
-            {"/webhook", weight_keeper_webhook_handler, #{token => Token}}
+            {"/webhook", weight_keeper_webhook_handler, #{token => Token}},
+            {"/", weight_keeper_index_handler, []}
         ]}
     ]).
 

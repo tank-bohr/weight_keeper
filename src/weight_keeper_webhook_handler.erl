@@ -1,6 +1,8 @@
 -module(weight_keeper_webhook_handler).
 -include_lib("kernel/include/logger.hrl").
 
+-behaviour(cowboy_handler).
+
 -export([init/2]).
 
 -define(INSERT_QUERY, <<"
@@ -9,13 +11,10 @@
 ">>).
 
 init(Req, #{token := Token} = Opts) ->
-    {ok, Json, _} = cowboy_req:read_body(Req),
+    {ok, Json, _Req} = cowboy_req:read_body(Req),
     Data = jsx:decode(Json, [{labels, attempt_atom}]),
     react(Data, Token),
-    Resp = cowboy_req:reply(200, #{
-        <<"content-type">> => <<"application/json">>
-    }, jsx:encode(#{}), Req),
-    {ok, Resp, Opts}.
+    {ok, cowboy_req:reply(204, #{}, <<>>, Req), Opts}.
 
 react(#{message := #{chat := #{id := ChatId}, from := #{id := UserId, username := User}, text := Text}}, Token) ->
     ?LOG_DEBUG("Got message [~ts] from User [~s]", [Text, User]),
@@ -48,6 +47,6 @@ convert_number(Value) ->
         {error, no_float} ->
             {Int, _Rest} = string:to_integer(Value),
             float(Int);
-        {Float, Rest} ->
+        {Float, _Rest} ->
             Float
     end.

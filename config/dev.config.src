@@ -2,6 +2,15 @@
     {kernel, [
         {logger_level, debug}
     ]},
+    {weight_keeper, [
+        {telegram_token, "${TELEGRAM_TOKEN}"},
+        {tls_options, [
+            {cacertfile, "priv/cert/cacert.pem"},
+            {certfile, "priv/cert/cert.pem"},
+            {keyfile, "priv/cert/key.pem"},
+            {verify, verify_none}
+        ]}
+    ]},
     {pgapp, [
         {pools, [
             {main_pool, [
